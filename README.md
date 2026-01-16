@@ -96,7 +96,7 @@ After the application starts, a default admin user is automatically created. You
 
 You can also register new users through the application. Admins can create users with different roles (ADMIN, MANAGER, USER) from the admin dashboard.
 
-### ✨ Key Features:
+## ✨ Key Features:
 #### 🔐 Authentication & Security
 
   * JWT-based authentication
@@ -142,7 +142,7 @@ You can also register new users through the application. Admins can create users
 * Manager approval workflow
 
 
-### 📊 Dashboards
+## 📊 Dashboards
 
 #### Admin Dashboard
 
@@ -171,7 +171,7 @@ You can also register new users through the application. Admins can create users
 * Track task status
 
 
-### 🖥 Frontend (Angular)
+## 🖥 Frontend (Angular)
 
 * Standalone component architecture
 
@@ -186,7 +186,7 @@ You can also register new users through the application. Admins can create users
 * Auto refresh of dashboards on task updates
 
 
-### 🛠 Tech Stack
+## 🛠 Tech Stack
 
 #### Backend
 
@@ -220,7 +220,7 @@ You can also register new users through the application. Admins can create users
 * SCSS
 
 
-### 🧱 Architecture Highlights
+## 🧱 Architecture Highlights
 
 * DTO-based API responses (no entity exposure)
 
@@ -233,7 +233,7 @@ You can also register new users through the application. Admins can create users
 * Scalable and extensible design
 
 
-### 🎯 Use Cases
+## 🎯 Use Cases
 
 * Internal task management system
 
@@ -244,7 +244,7 @@ You can also register new users through the application. Admins can create users
 * Enterprise-style dashboard applications
 
 
-### 📌 Future Enhancements
+## 📌 Future Enhancements
 
 * Task comments and history
 
