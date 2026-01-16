@@ -1,0 +1,71 @@
+<h3>Users</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Roles</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.name }}</td>
+      <td>{{ user.email }}</td>
+
+      <td>
+        <span *ngFor="let role of user.roles" class="badge">
+          {{ role.name }}
+        </span>
+      </td>
+
+      <td class="actions">
+
+        <!-- Promote -->
+        <button
+          *ngIf="!hasRole(user, 'MANAGER') && !hasRole(user, 'ADMIN')"
+          (click)="promote(user.id)">
+          Promote
+        </button>
+
+        <!-- Demote -->
+        <button
+          *ngIf="hasRole(user, 'MANAGER')"
+          (click)="demote(user.id)">
+          Demote
+        </button>
+
+        <!-- Delete -->
+        <button
+          *ngIf="!hasRole(user, 'ADMIN')"
+          class="danger"
+          (click)="delete(user.id)">
+          Delete
+        </button>
+
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Notification Popup -->
+<app-notification-popup
+  *ngIf="showNotification"
+  [message]="notificationMessage"
+  [type]="notificationType"
+  (close)="closeNotification()">
+</app-notification-popup>
+
+<!-- Confirmation Popup -->
+<app-confirmation-popup
+  *ngIf="showConfirmation"
+  [title]="confirmationTitle"
+  [message]="confirmationMessage"
+  [confirmText]="confirmText"
+  cancelText="Cancel"
+  [type]="confirmationType"
+  (confirm)="confirmAction()"
+  (cancel)="cancelAction()">
+</app-confirmation-popup>

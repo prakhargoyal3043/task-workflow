@@ -1,0 +1,70 @@
+<h3>My Tasks</h3>
+
+<table class="task-table" *ngIf="!loading">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Status</th>
+      <th>Created By</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let task of tasks">
+      <td>{{ task.id }}</td>
+      <td>{{ task.title }}</td>
+
+      <td>
+        <span class="badge" [ngClass]="task.status">
+          {{ task.status }}
+        </span>
+      </td>
+
+      <!-- ✅ FIX: createdBy is an OBJECT -->
+      <td>{{ task.createdBy?.name }}</td>
+
+       <td>
+        <!-- TODO → IN_PROGRESS -->
+        <button
+          *ngIf="task.status === 'TODO'"
+          (click)="approve(task.id)">
+          Move to IN_PROGRESS
+        </button>
+        <!-- IN_PROGRESS → COMPLETED -->
+        <button
+          *ngIf="task.status === 'IN_PROGRESS'"
+          (click)="complete(task.id)">
+          Mark As Completed
+        </button>
+        </td>
+    </tr>
+
+    <tr *ngIf="tasks.length === 0">
+      <td colspan="4">No tasks assigned 🎉</td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="loading">Loading tasks...</div>
+
+<!-- Notification Popup -->
+<app-notification-popup
+  *ngIf="showNotification"
+  [message]="notificationMessage"
+  [type]="notificationType"
+  (close)="closeNotification()">
+</app-notification-popup>
+
+<!-- Confirmation Popup -->
+<app-confirmation-popup
+  *ngIf="showConfirmation"
+  [title]="confirmationTitle"
+  [message]="confirmationMessage"
+  [confirmText]="confirmText"
+  cancelText="Cancel"
+  [type]="confirmationType"
+  (confirm)="confirmAction()"
+  (cancel)="cancelAction()">
+</app-confirmation-popup>

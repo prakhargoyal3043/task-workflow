@@ -1,0 +1,23 @@
+<div class="modal-backdrop">
+  <div class="modal">
+
+    <h2>Create User</h2>
+
+    <form [formGroup]="userForm" (ngSubmit)="submit()">
+      <input formControlName="name" placeholder="Name">
+      <input formControlName="email" placeholder="Email">
+      <input type="password" formControlName="password" placeholder="Password">
+
+      <select formControlName="role">
+        <option value="USER">USER</option>
+        <option value="MANAGER">MANAGER</option>
+      </select>
+
+      <div class="actions">
+        <button type="submit">Create</button>
+        <button type="button" (click)="close.emit()">Cancel</button>
+      </div>
+    </form>
+
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="modal-backdrop">
+  <div class="modal">
+
+    <h3>Create Task</h3>
+
+    <form [formGroup]="taskForm" (ngSubmit)="submit()">
+
+      <label>Title</label>
+      <input type="text" formControlName="title" />
+
+      <label>Description</label>
+      <textarea formControlName="description"></textarea>
+
+      <label>Assign To</label>
+      <select formControlName="assignedTo">
+        <option value="">-- Select User --</option>
+        <option *ngFor="let user of users" [value]="user.id">
+          {{ user.name }}
+        </option>
+      </select>
+
+      <div class="actions">
+        <button type="submit" [disabled]="taskForm.invalid">Create</button>
+        <button type="button" (click)="close.emit()">Cancel</button>
+      </div>
+
+    </form>
+
+  </div>
+</div>

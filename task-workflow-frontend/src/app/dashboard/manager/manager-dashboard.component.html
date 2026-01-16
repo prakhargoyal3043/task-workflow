@@ -1,0 +1,71 @@
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <h1>Manager Dashboard</h1>
+
+    <div class="header-right">
+      <!-- Profile -->
+      <div class="profile-section" *ngIf="currentUser">
+        <div class="profile-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        <div class="profile-info">
+          <span class="profile-name">{{ currentUser.name }}</span>
+          <span class="profile-email">{{ currentUser.email }}</span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button (click)="openCreateTask()">Create Task</button>
+        <button class="logout" (click)="logout()">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- DASHBOARD CARDS -->
+  <div class="dashboard-cards">
+    <div class="card">
+      <h3>Pending Approvals</h3>
+      <p>{{ dashboard?.summary?.pendingApprovals ?? 0 }}</p>
+    </div>
+
+    <div class="card">
+      <h3>In Progress Tasks</h3>
+      <p>{{ dashboard?.summary?.inProgressTasks ?? 0 }}</p>
+    </div>
+  </div>
+
+  <!-- TASK APPROVAL TABLE -->
+  <app-task-approval (taskupdated) = "onTaskUpdated()"></app-task-approval>
+
+  <!-- CREATE TASK POPUP -->
+  <app-task-create
+    *ngIf="showCreateTask"
+    (close)="handleModalClose($event)">
+  </app-task-create>
+
+  <!-- Notification Popup -->
+  <app-notification-popup
+    *ngIf="showNotification"
+    [message]="notificationMessage"
+    [type]="notificationType"
+    (close)="closeNotification()">
+  </app-notification-popup>
+
+  <!-- Logout Confirmation Popup -->
+  <app-confirmation-popup
+    *ngIf="showLogoutConfirmation"
+    title="Logout"
+    message="Are you sure you want to logout?"
+    confirmText="Logout"
+    cancelText="Cancel"
+    type="warning"
+    (confirm)="confirmLogout()"
+    (cancel)="cancelLogout()">
+  </app-confirmation-popup>
+
+</div>

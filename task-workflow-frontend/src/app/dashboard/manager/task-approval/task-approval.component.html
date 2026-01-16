@@ -1,0 +1,80 @@
+<h3>Task Approvals</h3>
+
+<table class="task-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Assigned To</th>
+      <th>Created By</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let task of tasks">
+      <td>{{ task.id }}</td>
+      <td>{{ task.title }}</td>
+      <td>{{ task.assignedTo }}</td>
+      <td>{{ task.createdBy }}</td>
+      <td>{{ task.status }}</td>
+
+      <td>
+        <!-- TODO → IN_PROGRESS -->
+        <button
+          *ngIf="task.status === 'TODO'"
+          (click)="approve(task.id)">
+          Approve
+        </button>
+
+        <button
+          *ngIf="task.status === 'COMPLETED'"
+          (click)="todo(task.id)">
+          Move to TODO
+        </button>
+
+        <!-- IN_PROGRESS → COMPLETED -->
+        <button
+          *ngIf="task.status === 'IN_PROGRESS'"
+          (click)="complete(task.id)">
+          Complete
+        </button>
+
+        <!-- No buttons for COMPLETED / REJECTED -->
+         <button
+            *ngIf="task.status === 'TODO' || task.status === 'IN_PROGRESS' || task.status === 'COMPLETED'"
+            class="danger"
+            (click)="reject(task.id)">
+            Reject
+         </button>
+
+         <p *ngIf="task.status === 'REJECTED'">No Actions Possible</p>
+      </td>
+    </tr>
+
+    <tr *ngIf="tasks.length === 0">
+      <td colspan="6">No tasks available</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Notification Popup -->
+<app-notification-popup
+  *ngIf="showNotification"
+  [message]="notificationMessage"
+  [type]="notificationType"
+  (close)="closeNotification()">
+</app-notification-popup>
+
+<!-- Confirmation Popup -->
+<app-confirmation-popup
+  *ngIf="showConfirmation"
+  [title]="confirmationTitle"
+  [message]="confirmationMessage"
+  [confirmText]="confirmText"
+  cancelText="Cancel"
+  [type]="confirmationType"
+  (confirm)="confirmAction()"
+  (cancel)="cancelAction()">
+</app-confirmation-popup>
